@@ -4434,13 +4434,11 @@ def update_task_table_only(current_page, version, lock_state, analysis_trigger):
         # 🔧 FIX: Use cached signal stats from ALL tasks (calculated once per version)
         print(f"[DEBUG] ⏭️ USING CACHED SIGNAL STATS")
         stats_elapsed = 0.0
-        # Access global cache (already declared at function level)\n        signal_stats_table = cached_signal_stats_html if cached_signal_stats_html else html.Div("ℹ️ Stats loading...", style={"textAlign": "center", "padding": "10px", "color": "#555", "fontStyle": "italic"})
+        # Access global cache (already declared at function level)
+        signal_stats_table = cached_signal_stats_html if cached_signal_stats_html else html.Div("ℹ️ Stats loading...", style={"textAlign": "center", "padding": "10px", "color": "#555", "fontStyle": "italic"})
     else:
         # 🔧 CRITICAL: Calculate signal stats on ALL tasks when data loads/recalculates
         print(f"[DEBUG] 🚀 CALCULATING SIGNAL STATS for {len(tasks)} tasks...")
-        
-        # Declare global variables BEFORE using them
-        global cached_signal_stats_html, cached_small_stats_data, stats_cache_version
         
         t_stats_start = time.time()
 
@@ -4607,7 +4605,6 @@ def update_task_table_only(current_page, version, lock_state, analysis_trigger):
         signal_stats_table = html.Table([html.Tbody(signal_stats_rows)], style={"border": "1px solid #4a90e2", "padding": "5px", "marginTop": "10px", "backgroundColor": "#f0f7ff"})
         
         # Cache the stats for ALL tasks (calculated once per version)
-        global cached_signal_stats_html, cached_small_stats_data, stats_cache_version
         cached_signal_stats_html = signal_stats_table
         cached_small_stats_data = {"completed": completed_count, "total": total_tasks, "avg_adv": avg_adv, "avg_dd": avg_dd}
         stats_cache_version = golden_store_version
