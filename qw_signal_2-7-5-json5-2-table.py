@@ -4434,7 +4434,8 @@ def update_task_table_only(current_page, version, lock_state, analysis_trigger):
         # 🔧 FIX: Use cached signal stats from ALL tasks (calculated once per version)
         print(f"[DEBUG] ⏭️ USING CACHED SIGNAL STATS")
         stats_elapsed = 0.0
-        # Access global cache (already declared at function level)\n        signal_stats_table = cached_signal_stats_html if cached_signal_stats_html else html.Div("ℹ️ Stats loading...", style={"textAlign": "center", "padding": "10px", "color": "#555", "fontStyle": "italic"})
+        # Access global cache (already declared at function level)
+        signal_stats_table = cached_signal_stats_html if cached_signal_stats_html else html.Div("ℹ️ Stats loading...", style={"textAlign": "center", "padding": "10px", "color": "#555", "fontStyle": "italic"})
     else:
         # 🔧 CRITICAL: Calculate signal stats on ALL tasks when data loads/recalculates
         print(f"[DEBUG] 🚀 CALCULATING SIGNAL STATS for {len(tasks)} tasks...")
