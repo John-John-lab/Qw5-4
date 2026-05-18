@@ -4440,9 +4440,6 @@ def update_task_table_only(current_page, version, lock_state, analysis_trigger):
         # 🔧 CRITICAL: Calculate signal stats on ALL tasks when data loads/recalculates
         print(f"[DEBUG] 🚀 CALCULATING SIGNAL STATS for {len(tasks)} tasks...")
         
-        # Declare global variables BEFORE using them
-        global cached_signal_stats_html, cached_small_stats_data, stats_cache_version
-        
         t_stats_start = time.time()
 
         # ✅ BASIC STATS: Calculate only when data changes (not on page nav) - NOW USES ALL TASKS
@@ -4608,7 +4605,6 @@ def update_task_table_only(current_page, version, lock_state, analysis_trigger):
         signal_stats_table = html.Table([html.Tbody(signal_stats_rows)], style={"border": "1px solid #4a90e2", "padding": "5px", "marginTop": "10px", "backgroundColor": "#f0f7ff"})
         
         # Cache the stats for ALL tasks (calculated once per version)
-        global cached_signal_stats_html, cached_small_stats_data, stats_cache_version
         cached_signal_stats_html = signal_stats_table
         cached_small_stats_data = {"completed": completed_count, "total": total_tasks, "avg_adv": avg_adv, "avg_dd": avg_dd}
         stats_cache_version = golden_store_version
